@@ -10,7 +10,7 @@
   "miniapp": {
     "version": "1",
     "name": "Nostalgia Airdrop",
-    "homeUrl": "https://nost.vercel.app",
+    "homeUrl": "https://nost.vercel.app/?v=2",
     "iconUrl": "https://nost.vercel.app/icon.png",
     "splashImageUrl": "https://nost.vercel.app/og.png",
     "splashBackgroundColor": "#020617",
