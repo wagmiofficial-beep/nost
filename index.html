@@ -295,34 +295,36 @@
   }
 
   async function loadStats() {
-    try {
-      providerReadOnly = new ethers.JsonRpcProvider("https://mainnet.base.org");
-      const contract = new ethers.Contract(SELF_DROP_ADDRESS, SELF_DROP_ABI, providerReadOnly);
-      const [sold, raised, cap] = await Promise.all([
-        contract.totalTokensSold(),
-        contract.totalEthRaised(),
-        contract.saleCapTokens()
-      ]);
+  try {
+    const providerReadOnly = new ethers.JsonRpcProvider("https://mainnet.base.org");
+    const contract = new ethers.Contract(SELF_DROP_ADDRESS, SELF_DROP_ABI, providerReadOnly);
 
-      const soldNum = Number(sold.toString());
-      const capNum = 600000000;
-      const raisedEth = Number(ethers.formatEther(raised));
+    const [sold, raised, cap] = await Promise.all([
+      contract.totalTokensSold(),
+      contract.totalEthRaised(),
+      contract.saleCapTokens()
+    ]);
 
-      let percent = 0;
-      if (capNum > 0) {
-        percent = (soldNum / capNum) * 100;
-      }
-      progressFill.style.width = Math.min(percent, 100).toFixed(2) + "%";
-      soldPercentEl.textContent = `Sold: ${percent.toFixed(2)}% of selfdrop allocation`;
-      soldNumbersEl.textContent = `${soldNum.toLocaleString()} / ${capNum.toLocaleString()} NOST`;
-      ethRaisedText.textContent = `Total ETH raised: ${raisedEth.toFixed(4)} ETH`;
-    } catch (err) {
-      console.error("loadStats error", err);
-      soldPercentEl.textContent = "Sold: data unavailable";
-      soldNumbersEl.textContent = "";
-      ethRaisedText.textContent = "Total ETH raised: data unavailable";
+    const soldNum = Number(sold.toString());
+    const capNum = 600000000; // override manual ke 600 juta
+    const raisedEth = Number(ethers.formatEther(raised));
+
+    let percent = 0;
+    if (capNum > 0) {
+      percent = (soldNum / capNum) * 100;
     }
+
+    progressFill.style.width = Math.min(percent, 100).toFixed(2) + "%";
+    soldPercentEl.textContent = `Sold: ${percent.toFixed(2)}% of selfdrop allocation`;
+    soldNumbersEl.textContent = `${soldNum.toLocaleString()} / ${capNum.toLocaleString()} NOST`;
+    ethRaisedText.textContent = `Total ETH raised: ${raisedEth.toFixed(4)} ETH`;
+  } catch (err) {
+    console.error("loadStats error:", err);
+    soldPercentEl.textContent = "Sold: data unavailable";
+    soldNumbersEl.textContent = "";
+    ethRaisedText.textContent = "Total ETH raised: data unavailable";
   }
+}
 
   async function ensureBaseNetwork() {
     const chainIdHex = await window.ethereum.request({ method: "eth_chainId" });
@@ -411,7 +413,7 @@
   connectBtn.addEventListener("click", connectWallet);
   copyRefBtn.addEventListener("click", copyReferral);
   joinBtn.addEventListener("click", joinAirdrop);
-  shareBtn.addEventListener("click", shareonfarcaster);
+  shareBtn.addEventListener("click", shareOnFarcaster);
 
   loadStats();
 </script>
