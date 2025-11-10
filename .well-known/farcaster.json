@@ -1,0 +1,31 @@
+{
+  "accountAssociation": {
+    "header": "",
+    "payload": "",
+    "signature": ""
+  },
+  "baseBuilder": {
+    "ownerAddress": "0xbddc1b15d0d53c9a214955371d97f2fb827f33b0"
+  },
+  "miniapp": {
+    "version": "1",
+    "name": "Nostalgia Airdrop",
+    "homeUrl": "https://nostalgiaairdrop.vercel.app",
+    "iconUrl": "https://nostalgiaairdrop.vercel.app/icon.png",
+    "splashImageUrl": "https://nostalgiaairdrop.vercel.app/og.png",
+    "splashBackgroundColor": "#020617",
+    "subtitle": "Join the NOST airdrop on Base",
+    "description": "Dashboard + airdrop + referral hub for the Nostalgia ($NOST) experiment on Base.",
+    "screenshotUrls": [
+      "https://nostalgiaairdrop.vercel.app/og.png"
+    ],
+    "primaryCategory": "social",
+    "tags": ["nostalgia", "airdrop", "selfdrop", "base"],
+    "heroImageUrl": "https://nostalgiaairdrop.vercel.app/og.png",
+    "tagline": "Mint a memory, not a profit.",
+    "ogTitle": "Nostalgia Airdrop",
+    "ogDescription": "Join the $NOST airdrop and share your referral link on Farcaster.",
+    "ogImageUrl": "https://nostalgiaairdrop.vercel.app/og.png",
+    "noindex": false
+  }
+}
