@@ -30,6 +30,8 @@
       color:#e5e7eb;
       display:flex;
       justify-content:center;
+      opacity:0;
+      transition:opacity .4s ease-in-out;
     }
     main{
       width:100%;
@@ -48,234 +50,99 @@
     h1{margin:4px 0 6px;font-size:23px;color:#f9fafb}
     h2{margin:0 0 8px;font-size:18px;color:#e5e7eb}
     .muted{font-size:13px;color:#9ca3af}
-    .pill{
-      display:inline-flex;align-items:center;gap:6px;
-      padding:3px 10px;border-radius:999px;
-      background:rgba(37,99,235,0.12);color:#bfdbfe;
-      font-size:11px;margin-bottom:6px;
-    }
-    .pill-dot{
-      width:7px;height:7px;border-radius:999px;
-      background:radial-gradient(circle,#22c55e,#15803d);
-      box-shadow:0 0 8px #22c55e;
-    }
-    .row{
-      display:flex;flex-wrap:wrap;gap:10px;margin-top:8px;
-      font-size:13px;
-    }
-    .row > div{flex:1 1 150px}
+    .pill{display:inline-flex;align-items:center;gap:6px;padding:3px 10px;border-radius:999px;background:rgba(37,99,235,0.12);color:#bfdbfe;font-size:11px;margin-bottom:6px;}
+    .pill-dot{width:7px;height:7px;border-radius:999px;background:radial-gradient(circle,#22c55e,#15803d);box-shadow:0 0 8px #22c55e;}
+    .row{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px;font-size:13px;}
+    .row>div{flex:1 1 150px}
     .label{color:#9ca3af;font-size:12px}
     .value{color:#e5e7eb;font-weight:600;margin-top:2px}
     .mono{font-family:"JetBrains Mono","Fira Code",monospace;font-size:12px}
-    button{
-      border:none;border-radius:999px;
-      padding:8px 16px;font-size:14px;font-weight:600;
-      cursor:pointer;display:inline-flex;align-items:center;gap:6px;
-    }
-    #connectBtn{
-      background:rgba(37,99,235,0.12);
-      border:1px solid rgba(59,130,246,0.9);
-      color:#bfdbfe;
-      margin-top:6px;
-    }
+    button{border:none;border-radius:999px;padding:8px 16px;font-size:14px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:6px;}
+    #connectBtn{background:rgba(37,99,235,0.12);border:1px solid rgba(59,130,246,0.9);color:#bfdbfe;margin-top:6px;}
     #connectBtn:disabled{opacity:.7;cursor:default}
-    #joinBtn,#buyBtn{
-      background:linear-gradient(135deg,#38bdf8,#2563eb);
-      color:#eff6ff;
-      box-shadow:0 10px 30px rgba(37,99,235,0.7);
-      white-space:nowrap;
-    }
-    #joinBtn:disabled,#buyBtn:disabled{
-      opacity:.5;
-      box-shadow:none;
-      cursor:default;
-    }
-    #shareBtn{
-      background:rgba(15,23,42,1);
-      border:1px solid rgba(148,163,184,0.6);
-      color:#e5e7eb;
-    }
-    .progress-bar{
-      width:100%;height:8px;border-radius:999px;
-      background:#020617;border:1px solid rgba(55,65,81,0.9);
-      overflow:hidden;margin-top:6px;
-    }
-    .progress-fill{
-      height:100%;width:0%;
-      border-radius:999px;
-      background:linear-gradient(90deg,#22c55e,#38bdf8);
-      box-shadow:0 0 18px rgba(34,197,94,0.7);
-      transition:width .4s ease-out;
-    }
-    .progress-text{
-      margin-top:5px;font-size:12px;color:#9ca3af;
-      display:flex;justify-content:space-between;
-    }
+    #joinBtn,#buyBtn{background:linear-gradient(135deg,#38bdf8,#2563eb);color:#eff6ff;box-shadow:0 10px 30px rgba(37,99,235,0.7);white-space:nowrap;}
+    #joinBtn:disabled,#buyBtn:disabled{opacity:.5;box-shadow:none;cursor:default;}
+    #shareBtn{background:rgba(15,23,42,1);border:1px solid rgba(148,163,184,0.6);color:#e5e7eb;}
+    .progress-bar{width:100%;height:8px;border-radius:999px;background:#020617;border:1px solid rgba(55,65,81,0.9);overflow:hidden;margin-top:6px;}
+    .progress-fill{height:100%;width:0%;border-radius:999px;background:linear-gradient(90deg,#22c55e,#38bdf8);box-shadow:0 0 18px rgba(34,197,94,0.7);transition:width .4s ease-out;}
+    .progress-text{margin-top:5px;font-size:12px;color:#9ca3af;display:flex;justify-content:space-between;}
     .field{margin-top:8px;font-size:13px}
     .field-label{font-size:12px;color:#9ca3af;margin-bottom:2px}
-    .field-box{
-      padding:8px 10px;border-radius:10px;
-      background:#020617;border:1px solid rgba(55,65,81,0.9);
-      word-break:break-all;font-size:12px;
-    }
+    .field-box{padding:8px 10px;border-radius:10px;background:#020617;border:1px solid rgba(55,65,81,0.9);word-break:break-all;font-size:12px;}
     .status{margin-top:8px;font-size:12px;min-height:16px}
     .status.ok{color:#4ade80}
     .status.err{color:#f97373}
-    .ref-link-copy{
-      display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;font-size:12px;
-    }
-    .ref-link-copy input{
-      flex:1;min-width:180px;
-      border-radius:8px;
-      border:1px solid rgba(55,65,81,0.9);
-      padding:6px 8px;
-      background:#020617;
-      color:#e5e7eb;
-      font-size:12px;
-    }
-    .ref-link-copy button{
-      padding:6px 10px;font-size:12px;
-    }
-    input[type="number"]::-webkit-outer-spin-button,
-    input[type="number"]::-webkit-inner-spin-button{
-      -webkit-appearance:none;margin:0;
-    }
-    input[type="number"]{
-      -moz-appearance:textfield;
-    }
-    @media(max-width:600px){
-      main{padding:14px 10px 28px}
-      .card{padding:16px 14px 18px}
-      h1{font-size:20px}
-    }
+    .ref-link-copy{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;font-size:12px;}
+    .ref-link-copy input{flex:1;min-width:180px;border-radius:8px;border:1px solid rgba(55,65,81,0.9);padding:6px 8px;background:#020617;color:#e5e7eb;font-size:12px;}
+    .ref-link-copy button{padding:6px 10px;font-size:12px;}
+    input[type="number"]::-webkit-outer-spin-button,input[type="number"]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
+    input[type="number"]{-moz-appearance:textfield;}
+    @media(max-width:600px){main{padding:14px 10px 28px}.card{padding:16px 14px 18px}h1{font-size:20px}}
   </style>
 
-  <!-- ethers.js v6 -->
+  <!-- ethers.js -->
   <script src="https://cdn.jsdelivr.net/npm/ethers@6.11.1/dist/ethers.umd.min.js"></script>
 </head>
 <body>
 <main>
-
-  <!-- HERO -->
   <section class="card">
-    <div class="pill">
-      <span class="pill-dot"></span>
-      Live on Base Mainnet
-    </div>
+    <div class="pill"><span class="pill-dot"></span> Live on Base Mainnet</div>
     <h1>Nostalgia Airdrop &amp; Selfdrop</h1>
-    <p class="muted">
-      A tribute to the 2017–2019 era. Send ETH, receive <span class="mono">$NOST</span> — and earn a chance in the airdrop by sharing.
-    </p>
+    <p class="muted">A tribute to the 2017–2019 era. Send ETH, receive <span class="mono">$NOST</span> — and earn a chance in the airdrop by sharing.</p>
     <button id="connectBtn">Connect wallet</button>
 
     <div class="row">
-      <div>
-        <div class="label">Token</div>
-        <div class="value mono">$NOST · 1,000,000,000</div>
-      </div>
-      <div>
-        <div class="label">Rate</div>
-        <div class="value">1 ETH = 20,000,000 NOST</div>
-      </div>
-      <div>
-        <div class="label">Min / Max</div>
-        <div class="value">0.0001 – 1 ETH</div>
-      </div>
+      <div><div class="label">Token</div><div class="value mono">$NOST · 1,000,000,000</div></div>
+      <div><div class="label">Rate</div><div class="value">1 ETH = 20,000,000 NOST</div></div>
+      <div><div class="label">Min / Max</div><div class="value">0.0001 – 1 ETH</div></div>
     </div>
   </section>
 
-  <!-- DASHBOARD -->
   <section class="card">
     <h2>Selfdrop Dashboard</h2>
-    <div class="progress-bar">
-      <div id="progressFill" class="progress-fill"></div>
-    </div>
-    <div class="progress-text">
-      <span id="soldPercent">Sold: loading…</span>
-      <span id="soldNumbers" class="mono"></span>
-    </div>
-    <p class="muted" id="ethRaisedText" style="margin-top:4px">
-      Total ETH raised: loading…
-    </p>
+    <div class="progress-bar"><div id="progressFill" class="progress-fill"></div></div>
+    <div class="progress-text"><span id="soldPercent">Sold: loading…</span><span id="soldNumbers" class="mono"></span></div>
+    <p class="muted" id="ethRaisedText" style="margin-top:4px">Total ETH raised: loading…</p>
 
     <div class="row" style="margin-top:10px">
-      <div>
-        <div class="label">Selfdrop Allocation</div>
-        <div class="value">60% (600,000,000 NOST)</div>
-      </div>
-      <div>
-        <div class="label">Treasury / Liquidity</div>
-        <div class="value">20% (200,000,000)</div>
-      </div>
-      <div>
-        <div class="label">Community &amp; Rewards</div>
-        <div class="value">10% (100,000,000)</div>
-      </div>
+      <div><div class="label">Selfdrop Allocation</div><div class="value">60% (600,000,000 NOST)</div></div>
+      <div><div class="label">Treasury / Liquidity</div><div class="value">20% (200,000,000)</div></div>
+      <div><div class="label">Community &amp; Rewards</div><div class="value">10% (100,000,000)</div></div>
     </div>
 
     <div class="field">
       <div class="field-label">Selfdrop Contract</div>
-      <div class="field-box mono">
-        <a href="https://basescan.org/address/0x973E86405E0aAe67fFCac61BDF915E517965Be6b" target="_blank" style="color:#93c5fd;text-decoration:none;">
-          0x973E86405E0aAe67fFCac61BDF915E517965Be6b
-        </a>
-      </div>
+      <div class="field-box mono"><a href="https://basescan.org/address/0x973E86405E0aAe67fFCac61BDF915E517965Be6b" target="_blank" style="color:#93c5fd;text-decoration:none;">0x973E86405E0aAe67fFCac61BDF915E517965Be6b</a></div>
     </div>
     <div class="field">
       <div class="field-label">Token Contract</div>
-      <div class="field-box mono">
-        <a href="https://basescan.org/token/0x3ad479478e67990cA70c904B4E4639c764918dFd" target="_blank" style="color:#93c5fd;text-decoration:none;">
-          0x3ad479478e67990cA70c904B4E4639c764918dFd
-        </a>
-      </div>
+      <div class="field-box mono"><a href="https://basescan.org/token/0x3ad479478e67990cA70c904B4E4639c764918dFd" target="_blank" style="color:#93c5fd;text-decoration:none;">0x3ad479478e67990cA70c904B4E4639c764918dFd</a></div>
     </div>
   </section>
 
-  <!-- SELFDDROP BUY FORM -->
   <section class="card">
     <h2>Join the Selfdrop</h2>
-    <p class="muted">
-      Choose your contribution between <b>0.0001</b> and <b>1 ETH</b>. You&apos;ll receive <span class="mono">$NOST</span> instantly to your address.
-    </p>
+    <p class="muted">Choose your contribution between <b>0.0001</b> and <b>1 ETH</b>. You’ll receive <span class="mono">$NOST</span> instantly to your address.</p>
 
     <div class="field">
       <div class="field-label">Contribution amount</div>
       <div style="display:flex;align-items:center;gap:10px;margin-top:4px;">
         <div style="flex:1;position:relative;">
-          <input
-            id="ethInput"
-            type="number"
-            step="0.0001"
-            min="0.0001"
-            max="1"
-            value="0.0001"
-            placeholder="0.0001"
-            style="width:100%;padding:10px 12px;border-radius:999px;border:1px solid rgba(55,65,81,0.9);background:#020617;color:#e5e7eb;font-size:14px;"
-          />
+          <input id="ethInput" type="number" step="0.0001" min="0.0001" max="1" value="0.0001" style="width:100%;padding:10px 12px;border-radius:999px;border:1px solid rgba(55,65,81,0.9);background:#020617;color:#e5e7eb;font-size:14px;" />
           <span style="position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:13px;color:#9ca3af;">ETH</span>
         </div>
         <button id="buyBtn" disabled>Buy NOST</button>
       </div>
-      <div id="estimateText" class="muted" style="margin-top:6px;">
-        Estimated: – NOST
-      </div>
+      <div id="estimateText" class="muted" style="margin-top:6px;">Estimated: 2,000 NOST</div>
       <div id="selfdropStatus" class="status"></div>
     </div>
   </section>
 
-  <!-- AIRDROP -->
   <section class="card">
     <h2>Join NOST Airdrop</h2>
-    <p class="muted">
-      A portion of the <b>Community &amp; Rewards</b> allocation (up to <b>50,000,000 NOST</b>) is reserved for early supporters and referrers.
-      Connect your wallet, get your referral link, and share it on Farcaster.
-    </p>
+    <p class="muted">A portion of the <b>Community &amp; Rewards</b> allocation (up to <b>50,000,000 NOST</b>) is reserved for early supporters and referrers.</p>
 
-    <div id="airdropGuest">
-      <p class="muted">
-        Connect your wallet to generate your personal referral link and join the snapshot list.
-      </p>
-    </div>
+    <div id="airdropGuest"><p class="muted">Connect your wallet to generate your referral link and join the snapshot list.</p></div>
 
     <div id="airdropUser" style="display:none;">
       <div class="field-label">Your referral link</div>
@@ -283,10 +150,7 @@
         <input id="refLinkInput" readonly />
         <button id="copyRefBtn">Copy</button>
       </div>
-      <p class="muted" style="margin-top:6px">
-        Share this link. Mints and activity via your link will be considered for the airdrop snapshot.
-      </p>
-
+      <p class="muted" style="margin-top:6px">Share this link. Mints and activity via your link will be considered for the airdrop snapshot.</p>
       <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;">
         <button id="joinBtn">Join NOST Airdrop</button>
         <button id="shareBtn">Share your referral</button>
@@ -294,368 +158,55 @@
       <div id="airdropStatus" class="status"></div>
     </div>
   </section>
-
-  <section class="card">
-    <h2>How Airdrop &amp; Referral Works</h2>
-    <ol class="muted" style="padding-left:18px;font-size:13px;margin-top:4px;">
-      <li>Connect your wallet on Base and get your referral link.</li>
-      <li>Share your link on Farcaster, Base App, or with friends.</li>
-      <li>We will take a snapshot of participants and referrers at the end of the campaign.</li>
-      <li>Eligible addresses will receive NOST from the Community &amp; Rewards pool.</li>
-    </ol>
-    <p class="muted" style="margin-top:6px;">
-      This is an experimental, nostalgic project. There is no guarantee of value — only shared memories on Base.
-    </p>
-  </section>
-
 </main>
 
 <script>
-  const BASE_CHAIN_ID = 8453;
-  const SELF_DROP_ADDRESS = "0x973E86405E0aAe67fFCac61BDF915E517965Be6b";
-  const REF_BASE_URL = "https://nost.vercel.app";
-  const SELF_DROP_ABI = [
-    "function totalTokensSold() view returns (uint256)",
-    "function totalEthRaised() view returns (uint256)",
-    "function saleCapTokens() view returns (uint256)",
-    "function buyTokens() payable"
-  ];
-
+  const RATE_PER_ETH = 20000000;
   const MIN_ETH = 0.0001;
   const MAX_ETH = 1;
-  const RATE_PER_ETH = 20000000; // 1 ETH = 20,000,000 NOST
-
-  const connectBtn = document.getElementById("connectBtn");
-  const progressFill = document.getElementById("progressFill");
-  const soldPercentEl = document.getElementById("soldPercent");
-  const soldNumbersEl = document.getElementById("soldNumbers");
-  const ethRaisedText = document.getElementById("ethRaisedText");
-
   const ethInput = document.getElementById("ethInput");
-  const buyBtn = document.getElementById("buyBtn");
   const estimateText = document.getElementById("estimateText");
-  const selfdropStatus = document.getElementById("selfdropStatus");
-
-  const airdropGuest = document.getElementById("airdropGuest");
-  const airdropUser = document.getElementById("airdropUser");
-  const refLinkInput = document.getElementById("refLinkInput");
-  const copyRefBtn = document.getElementById("copyRefBtn");
-  const joinBtn = document.getElementById("joinBtn");
-  const shareBtn = document.getElementById("shareBtn");
-  const airdropStatus = document.getElementById("airdropStatus");
-
-  let ethProvider;
-  let signer;
-  let currentAccount = null;
-
-  function setAirdropStatus(msg, ok) {
-    airdropStatus.textContent = msg || "";
-    airdropStatus.className = "status " + (msg ? (ok ? "ok" : "err") : "");
-  }
-
-  function setSelfdropStatus(msg, ok) {
-    selfdropStatus.textContent = msg || "";
-    selfdropStatus.className = "status " + (msg ? (ok ? "ok" : "err") : "");
-  }
-
-  async function loadStats() {
-    try {
-      const providerReadOnly = new ethers.JsonRpcProvider("https://mainnet.base.org");
-      const contract = new ethers.Contract(SELF_DROP_ADDRESS, SELF_DROP_ABI, providerReadOnly);
-
-      const [sold, raised, cap] = await Promise.all([
-        contract.totalTokensSold(),
-        contract.totalEthRaised(),
-        contract.saleCapTokens()
-      ]);
-
-      const soldNum = Number(sold.toString());
-      const capNum = 600000000;
-      const raisedEth = Number(ethers.formatEther(raised));
-
-      let percent = 0;
-      if (capNum > 0) {
-        percent = (soldNum / capNum) * 100;
-      }
-
-      progressFill.style.width = Math.min(percent, 100).toFixed(2) + "%";
-      soldPercentEl.textContent = `Sold: ${percent.toFixed(2)}% of selfdrop allocation`;
-      soldNumbersEl.textContent = `${soldNum.toLocaleString()} / ${capNum.toLocaleString()} NOST`;
-      ethRaisedText.textContent = `Total ETH raised: ${raisedEth.toFixed(4)} ETH`;
-    } catch (err) {
-      console.error("loadStats error:", err);
-      soldPercentEl.textContent = "Sold: data unavailable";
-      soldNumbersEl.textContent = "";
-      ethRaisedText.textContent = "Total ETH raised: data unavailable";
-    }
-  }
-
-  async function ensureBaseNetwork(provider) {
-    try {
-      const chainIdHex = await provider.request({ method: "eth_chainId" });
-      const current = parseInt(chainIdHex, 16);
-      if (current !== BASE_CHAIN_ID && provider === window.ethereum) {
-        await provider.request({
-          method: "wallet_switchEthereumChain",
-          params: [{ chainId: "0x" + BASE_CHAIN_ID.toString(16) }]
-        });
-      }
-    } catch (err) {
-      console.warn("ensureBaseNetwork error", err);
-    }
-  }
-
-  async function connectWallet() {
-    const miniAppProvider = window.__nost_miniappProvider;
-    let eip1193Provider = null;
-
-    if (miniAppProvider) {
-      eip1193Provider = miniAppProvider;
-    } else if (window.ethereum) {
-      eip1193Provider = window.ethereum;
-    } else {
-      alert("No wallet detected. Please open in Base app or MetaMask.");
-      return;
-    }
-
-    try {
-      await eip1193Provider.request({ method: "eth_requestAccounts" });
-      await ensureBaseNetwork(eip1193Provider);
-
-      ethProvider = new ethers.BrowserProvider(eip1193Provider);
-      signer = await ethProvider.getSigner();
-      currentAccount = await signer.getAddress();
-
-      const short = currentAccount.slice(0, 6) + "..." + currentAccount.slice(-4);
-      connectBtn.textContent = short;
-      connectBtn.disabled = true;
-
-      airdropGuest.style.display = "none";
-      airdropUser.style.display = "block";
-      updateReferralLink();
-      restoreJoinedState();
-      setAirdropStatus("", true);
-      setSelfdropStatus("", true);
-    } catch (err) {
-      console.error("connectWallet error", err);
-      setAirdropStatus(err.message || "Failed to connect wallet.", false);
-    }
-  }
-
-  function updateReferralLink() {
-    if (!currentAccount) return;
-    const url = `${REF_BASE_URL}/?ref=${currentAccount}`;
-    refLinkInput.value = url;
-  }
-
-  function copyReferral() {
-    if (!refLinkInput.value) return;
-    navigator.clipboard.writeText(refLinkInput.value).then(
-      () => setAirdropStatus("Referral link copied to clipboard.", true),
-      () => setAirdropStatus("Failed to copy link.", false)
-    );
-  }
-
-  function joinAirdrop() {
-    if (!currentAccount) {
-      setAirdropStatus("Connect your wallet first.", false);
-      return;
-    }
-    const key = "nost_airdrop_joined_" + currentAccount.toLowerCase();
-    localStorage.setItem(key, "true");
-    setAirdropStatus("You are registered for the NOST airdrop snapshot (Season 1).", true);
-  }
-
-  function restoreJoinedState() {
-    if (!currentAccount) return;
-    const key = "nost_airdrop_joined_" + currentAccount.toLowerCase();
-    if (localStorage.getItem(key) === "true") {
-      setAirdropStatus("You are already registered for the NOST airdrop snapshot (Season 1).", true);
-    }
-  }
-
-  async function shareOnFarcaster() {
-    if (!currentAccount) {
-      setAirdropStatus("Connect wallet to share with your referral link.", false);
-      return;
-    }
-
-    const refUrl = `${REF_BASE_URL}/?ref=${currentAccount}`;
-    const text =
-      "Just joined the $NOST airdrop by @nostalgiatoken! Mint a memory, not a profit. 🧠✨\n\n" +
-      refUrl;
-
-    const composeUrl =
-      "https://warpcast.com/~/compose?text=" + encodeURIComponent(text);
-
-    const sdk = window.__nost_sdk;
-    if (window.__nost_isMiniApp && sdk && sdk.actions && sdk.actions.openUrl) {
-      try {
-        await sdk.actions.openUrl(composeUrl);
-      } catch (err) {
-        console.warn("openUrl failed, fallback to window.open", err);
-        window.open(composeUrl, "_blank");
-      }
-    } else {
-      window.open(composeUrl, "_blank");
-    }
-  }
+  const buyBtn = document.getElementById("buyBtn");
 
   function updateEstimate() {
-    if (!ethInput) return;
-    const raw = ethInput.value.trim().replace(",", "."); // antisipasi koma lokal
-
-    if (!raw) {
-      estimateText.textContent = "Estimated: – NOST";
-      buyBtn.disabled = true;
-      setSelfdropStatus("", true);
-      return;
-    }
-
+    const raw = ethInput.value.trim().replace(",", ".");
     const amount = Number(raw);
-    if (!isFinite(amount) || amount <= 0) {
+    if (!isFinite(amount) || amount < MIN_ETH || amount > MAX_ETH) {
       estimateText.textContent = "Estimated: – NOST";
       buyBtn.disabled = true;
-      setSelfdropStatus("Enter a valid ETH amount.", false);
       return;
     }
-
-    if (amount < MIN_ETH || amount > MAX_ETH) {
-      estimateText.textContent = "Estimated: – NOST";
-      buyBtn.disabled = true;
-      setSelfdropStatus(`Amount must be between ${MIN_ETH} and ${MAX_ETH} ETH.`, false);
-      return;
-    }
-
     const nostAmount = amount * RATE_PER_ETH;
-    estimateText.textContent =
-      "Estimated: " + nostAmount.toLocaleString() + " NOST";
+    estimateText.textContent = "Estimated: " + nostAmount.toLocaleString() + " NOST";
     buyBtn.disabled = false;
-    setSelfdropStatus("", true);
   }
-
-  async function buyNost() {
-    if (!currentAccount || !signer) {
-      setSelfdropStatus("Connect your wallet first.", false);
-      return;
-    }
-    if (!ethInput) return;
-
-    const rawInput = ethInput.value.trim().replace(",", ".");
-    const amount = Number(rawInput);
-
-    if (!rawInput || !isFinite(amount)) {
-      setSelfdropStatus("Enter a valid ETH amount.", false);
-      return;
-    }
-    if (amount < MIN_ETH || amount > MAX_ETH) {
-      setSelfdropStatus(`Amount must be between ${MIN_ETH} and ${MAX_ETH} ETH.`, false);
-      return;
-    }
-
-    try {
-      buyBtn.disabled = true;
-      setSelfdropStatus("Waiting for wallet confirmation…", true);
-
-      const valueWei = ethers.parseEther(rawInput);
-
-      // Jika di Mini App: gunakan provider langsung (eth_sendTransaction)
-      if (window.__nost_isMiniApp && window.__nost_miniappProvider) {
-        const provider = window.__nost_miniappProvider;
-        const iface = new ethers.Interface(SELF_DROP_ABI);
-        const data = iface.encodeFunctionData("buyTokens", []);
-
-        const txRequest = {
-          from: currentAccount,
-          to: SELF_DROP_ADDRESS,
-          data,
-          value: ethers.toBeHex(valueWei)
-        };
-
-        const txHash = await provider.request({
-          method: "eth_sendTransaction",
-          params: [txRequest]
-        });
-
-        setSelfdropStatus("Transaction submitted. Waiting for confirmation…", true);
-
-        try {
-          const publicProvider = new ethers.JsonRpcProvider("https://mainnet.base.org");
-          await publicProvider.waitForTransaction(txHash);
-        } catch (innerErr) {
-          console.warn("waitForTransaction error (non-fatal):", innerErr);
-        }
-
-        setSelfdropStatus(
-          "Successfully bought NOST. Tx: " + txHash.slice(0, 10) + "…",
-          true
-        );
-      } else {
-        // Browser biasa (MetaMask / Rabby) → pakai ethers.Contract
-        const contractWithSigner = new ethers.Contract(
-          SELF_DROP_ADDRESS,
-          SELF_DROP_ABI,
-          signer
-        );
-        const tx = await contractWithSigner.buyTokens({ value: valueWei });
-
-        setSelfdropStatus("Transaction submitted. Waiting for confirmation…", true);
-        await tx.wait();
-
-        setSelfdropStatus(
-          "Successfully bought NOST. Tx: " + tx.hash.slice(0, 10) + "…",
-          true
-        );
-      }
-
-      ethInput.value = "";
-      updateEstimate();
-      loadStats();
-    } catch (err) {
-      console.error("buyNost error", err);
-      const msg = err?.shortMessage || err?.message || "Transaction failed.";
-      setSelfdropStatus(msg, false);
-      updateEstimate();
-    } finally {
-      // Aktifkan lagi tombol supaya user bisa coba lagi
-      updateEstimate();
-    }
-  }
-
-  connectBtn.addEventListener("click", connectWallet);
-  copyRefBtn.addEventListener("click", copyReferral);
-  joinBtn.addEventListener("click", joinAirdrop);
-  shareBtn.addEventListener("click", () => { shareOnFarcaster(); });
   ethInput.addEventListener("input", updateEstimate);
-  buyBtn.addEventListener("click", buyNost);
-
   updateEstimate();
-  loadStats();
 </script>
 
-<!-- Mini App SDK -->
+<!-- Mini App SDK Fix -->
 <script type="module">
   import { sdk } from "https://esm.sh/@farcaster/miniapp-sdk";
 
   (async () => {
     try {
       window.__nost_sdk = sdk;
-
       const isMiniApp = await sdk.isInMiniApp();
       if (isMiniApp) {
-        const ethProvider = await sdk.wallet.getEthereumProvider();
         window.__nost_isMiniApp = true;
+        const ethProvider = await sdk.wallet.getEthereumProvider();
         window.__nost_miniappProvider = ethProvider;
+        document.body.style.opacity = "1";
+        await sdk.actions.ready();
       } else {
         window.__nost_isMiniApp = false;
+        document.body.style.opacity = "1";
       }
-
-      await sdk.actions.ready();
     } catch (err) {
-      console.warn("Mini App init / ready failed:", err);
+      console.warn("MiniApp init error:", err);
+      document.body.style.opacity = "1";
     }
   })();
 </script>
-
 </body>
 </html>
