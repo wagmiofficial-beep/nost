@@ -443,18 +443,20 @@
   }
 
   function updateReferralLink() {
-    if (!currentAccount) return;
-    const url = `${REF_BASE_URL}/?ref=${currentAccount}`;
-    refLinkInput.value = url;
-  }
+  if (!currentAccount) return;
+  const cleanAddress = currentAccount.trim(); // hapus spasi tambahan
+  const url = `${REF_BASE_URL}/?ref=${cleanAddress}`;
+  refLinkInput.value = url.trim(); // pastikan link juga bersih
+}
 
   function copyReferral() {
-    if (!refLinkInput.value) return;
-    navigator.clipboard.writeText(refLinkInput.value).then(
-      () => setAirdropStatus("Referral link copied to clipboard.", true),
-      () => setAirdropStatus("Failed to copy link.", false)
-    );
-  }
+  if (!refLinkInput.value) return;
+  const cleanLink = refLinkInput.value.trim();
+  navigator.clipboard.writeText(cleanLink).then(
+    () => setStatus("Referral link copied to clipboard.", true),
+    () => setStatus("Failed to copy link.", false)
+  );
+}
 
   function joinAirdrop() {
     if (!currentAccount) {
