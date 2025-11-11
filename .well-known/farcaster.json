@@ -12,9 +12,9 @@
     "splashImageUrl": "https://nost.vercel.app/og.png",
     "splashBackgroundColor": "#0d1117",
     "imageUrl": "https://nost.vercel.app/og.png",
-    "buttonTitle": "Join $NOST Airdrop",
+    "buttonTitle": "Join NOST Airdrop",
     "webhookUrl": "https://nost.vercel.app/api/webhook",
-    "description": "Join the $NOST Airdrop by @nostalgiatoken.farcaster.eth — connect wallet, mint your memory, and share your referral link.",
+    "description": "Join the NOST Airdrop by the Nostalgia team. Connect wallet, mint your memory, and share your referral link.",
     "tags": ["nost", "airdrop", "base", "nostalgia", "selfdrop"]
   }
 }
