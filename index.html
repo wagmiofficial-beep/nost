@@ -9,7 +9,7 @@
     content="Nostalgia Airdrop & Selfdrop on Base. Join the $NOST selfdrop, track on-chain stats, and view transparent tokenomics & contract details."
   />
 
-  <!-- ========== Open Graph (preview di Warpcast, Telegram, dll) ========== -->
+  <!-- Open Graph -->
   <meta property="og:title" content="Nostalgia Airdrop & Selfdrop" />
   <meta
     property="og:description"
@@ -19,14 +19,14 @@
   <meta property="og:url" content="https://nost.vercel.app" />
   <meta property="og:type" content="website" />
 
-  <!-- ========== Farcaster Frame vNext ========== -->
+  <!-- Farcaster Frame vNext -->
   <meta property="fc:frame" content="vNext" />
   <meta
     property="fc:frame:post_url"
     content="https://nost.vercel.app/api/webhook"
   />
 
-  <!-- ========== Farcaster MiniApp embed ========== -->
+  <!-- Farcaster MiniApp -->
   <meta
     name="fc:miniapp"
     content='{
@@ -45,10 +45,8 @@
     }'
   />
 
-  <!-- Favicon -->
   <link rel="icon" type="image/png" href="https://nost.vercel.app/icon.png" />
 
-  <!-- ========== STYLE ========== -->
   <style>
     * {
       box-sizing: border-box;
@@ -319,12 +317,12 @@
     }
   </style>
 
-  <!-- ethers.js v6 (untuk baca data on-chain) -->
+  <!-- ethers.js v6 -->
   <script src="https://cdn.jsdelivr.net/npm/ethers@6.11.1/dist/ethers.umd.min.js"></script>
 </head>
 <body>
   <main>
-    <!-- ========== HERO ========== -->
+    <!-- HERO -->
     <section class="hero">
       <div class="hero-left">
         <div class="badge">
@@ -338,9 +336,9 @@
         </p>
         <button
           class="primary-btn"
-          onclick="window.open('https://nost.vercel.app','_blank')"
+          onclick="window.open('https://nostalgiatoken.vercel.app','_blank')"
         >
-          <span>🪂</span> Join NOST Airdrop
+          <span>🪂</span> Open Selfdrop dApp
         </button>
       </div>
       <div class="hero-right">
@@ -352,9 +350,8 @@
       </div>
     </section>
 
-    <!-- ========== MAIN CARDS ========== -->
+    <!-- DASHBOARD + TOKENOMICS -->
     <section class="cards">
-      <!-- LEFT: Selfdrop dashboard -->
       <article class="card">
         <h2>Selfdrop Dashboard (on-chain)</h2>
         <p class="muted">
@@ -391,7 +388,6 @@
         <div id="statsStatus" class="status-ok"></div>
       </article>
 
-      <!-- RIGHT: Tokenomics + how it works -->
       <article class="card">
         <h2>Tokenomics</h2>
         <p class="muted">
@@ -417,7 +413,7 @@
       </article>
     </section>
 
-    <!-- ========== CONTRACT & TRUST ========== -->
+    <!-- CONTRACT & TRUST -->
     <section class="card" style="margin-top: 14px;">
       <h2>Contracts & Transparency</h2>
       <p class="muted">
@@ -472,13 +468,13 @@
       </div>
     </section>
 
-    <!-- ========== HOW TO JOIN ========== -->
+    <!-- HOW TO JOIN -->
     <section class="card" style="margin-top: 14px;">
       <h2>How to Join</h2>
       <ol class="muted" style="padding-left: 18px; font-size: 13px;">
         <li>Open this page in Base App or your favorite Dapps wallet.</li>
-        <li>Use the official selfdrop interface to send ETH on Base.</li>
-        <li>Receive $NOST according to the selfdrop rate.</li>
+        <li>Click <strong>Open Selfdrop dApp</strong> to go to the mint UI.</li>
+        <li>Send ETH on Base from the official dApp to receive $NOST.</li>
         <li>Share your link or cast to help grow the nostalgia.</li>
       </ol>
       <p class="muted" style="margin-top: 8px;">
@@ -493,7 +489,6 @@
     </footer>
   </main>
 
-  <!-- ========== SCRIPT: Load on-chain stats ========== -->
   <script>
     const SELF_DROP_ADDRESS =
       "0x973E86405E0aAe67fFCac61BDF915E517965Be6b";
@@ -528,7 +523,7 @@
         ]);
 
         const soldNum = Number(sold.toString());
-        const capNum = 600000000; // override ke 600M NOST untuk selfdrop
+        const capNum = 600000000; // override ke 600M NOST
         const raisedEth = Number(ethers.formatEther(raised));
 
         let percent = 0;
