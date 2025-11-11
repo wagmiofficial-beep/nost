@@ -488,25 +488,24 @@
     return;
   }
 
-  // bersihin address dari semua whitespace
   const cleanAddress = currentAccount.replace(/\s+/g, "");
   const refUrl = `${REF_BASE_URL}/?ref=${cleanAddress}`.trim();
 
   const header =
     "Just joined the $NOST airdrop by @nostalgiatoken! Mint a memory, not a profit. 🧠✨";
+  const helper =
+    "> Delete this line to show the card <";
 
-  // gabung text + URL dan TRIM seluruhnya
-  const castText = `${header}\n\n${refUrl}`.trim();
+  const castText = `${header}\n\n${refUrl}\n${helper}`.trim();
 
   const composeUrl =
     "https://warpcast.com/~/compose?text=" + encodeURIComponent(castText);
 
   const sdk = window.__nost_sdk;
-  if (window.__nost_isMiniApp && sdk && sdk.actions && sdk.actions.openUrl) {
+  if (window.__nost_isMiniApp && sdk?.actions?.openUrl) {
     try {
       await sdk.actions.openUrl(composeUrl);
-    } catch (err) {
-      console.warn("openUrl failed, fallback to window.open", err);
+    } catch {
       window.open(composeUrl, "_blank");
     }
   } else {
