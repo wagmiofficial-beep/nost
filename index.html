@@ -6,43 +6,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta
     name="description"
-    content="Nostalgia Airdrop & Selfdrop on Base. Join the $NOST selfdrop, track on-chain stats, and view transparent tokenomics & contract details."
+    content="Join the $NOST selfdrop on Base. Mint a memory, not a profit — with transparent tokenomics and on-chain stats."
   />
 
   <!-- Open Graph -->
   <meta property="og:title" content="Nostalgia Airdrop & Selfdrop" />
   <meta
     property="og:description"
-    content="Join the $NOST selfdrop on Base. Mint a memory, not a profit — with transparent tokenomics & contracts."
+    content="Join the $NOST selfdrop on Base. Transparent tokenomics, on-chain dashboard, and real nostalgia."
   />
   <meta property="og:image" content="https://nost.vercel.app/og.png" />
   <meta property="og:url" content="https://nost.vercel.app" />
   <meta property="og:type" content="website" />
 
-  <!-- Farcaster Frame vNext -->
-  <meta property="fc:frame" content="vNext" />
-  <meta
-    property="fc:frame:post_url"
-    content="https://nost.vercel.app/api/webhook"
-  />
-
-  <!-- Farcaster MiniApp -->
+  <!-- ✅ Farcaster Mini App Embed (fixed) -->
   <meta
     name="fc:miniapp"
-    content='{
-      "version":"1",
-      "imageUrl":"https://nost.vercel.app/og.png",
-      "button":{
-        "title":"Join NOST Airdrop",
-        "action":{
-          "type":"launch_miniapp",
-          "name":"Nostalgia Airdrop",
-          "url":"https://nost.vercel.app",
-          "splashImageUrl":"https://nost.vercel.app/og.png",
-          "splashBackgroundColor":"#0d1117"
-        }
-      }
-    }'
+    content='{"version":"1","imageUrl":"https://nost.vercel.app/og.png","button":{"title":"Join NOST Airdrop","action":{"type":"launch_miniapp","name":"Nostalgia Airdrop","url":"https://nost.vercel.app","splashImageUrl":"https://nost.vercel.app/og.png","splashBackgroundColor":"#0d1117"}}}'
   />
 
   <link rel="icon" type="image/png" href="https://nost.vercel.app/icon.png" />
@@ -50,8 +30,7 @@
   <style>
     * {
       box-sizing: border-box;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-        sans-serif;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
 
     body {
@@ -254,49 +233,6 @@
       flex-wrap: wrap;
     }
 
-    .field {
-      margin-top: 8px;
-      font-size: 12px;
-    }
-
-    .field-label {
-      font-size: 12px;
-      color: #9ca3af;
-      margin-bottom: 2px;
-    }
-
-    .field-box {
-      padding: 8px 10px;
-      border-radius: 10px;
-      background: #020617;
-      border: 1px solid rgba(55, 65, 81, 0.9);
-      word-break: break-all;
-      font-size: 12px;
-    }
-
-    .tokenomics-list {
-      list-style: none;
-      padding-left: 0;
-      margin: 6px 0 0;
-      font-size: 13px;
-      color: #d1d5db;
-    }
-    .tokenomics-list li {
-      margin-bottom: 4px;
-    }
-
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      border-radius: 999px;
-      padding: 2px 8px;
-      font-size: 11px;
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      color: #9ca3af;
-      margin-right: 6px;
-      margin-top: 4px;
-    }
-
     .status-ok {
       color: #4ade80;
       font-size: 12px;
@@ -317,12 +253,11 @@
     }
   </style>
 
-  <!-- ethers.js v6 -->
   <script src="https://cdn.jsdelivr.net/npm/ethers@6.11.1/dist/ethers.umd.min.js"></script>
 </head>
+
 <body>
   <main>
-    <!-- HERO -->
     <section class="hero">
       <div class="hero-left">
         <div class="badge">
@@ -331,33 +266,21 @@
         </div>
         <h1>$NOST Nostalgia Airdrop & Selfdrop</h1>
         <p class="subtitle">
-          A tribute to the 2017–2019 selfdrop era. Send ETH, receive $NOST —
-          with on-chain stats and transparent tokenomics. Mint a memory, not a profit.
+          A tribute to the 2017–2019 selfdrop era. Send ETH, receive $NOST — mint a memory, not a profit.
         </p>
-        <button
-          class="primary-btn"
-          onclick="window.open('https://nostalgiatoken.vercel.app','_blank')"
-        >
+        <button class="primary-btn" onclick="window.open('https://nostalgiatoken.vercel.app','_blank')">
           <span>🪂</span> Open Selfdrop dApp
         </button>
       </div>
       <div class="hero-right">
-        <img
-          src="https://nost.vercel.app/icon.png"
-          class="logo"
-          alt="$NOST"
-        />
+        <img src="https://nost.vercel.app/icon.png" class="logo" alt="$NOST" />
       </div>
     </section>
 
-    <!-- DASHBOARD + TOKENOMICS -->
     <section class="cards">
       <article class="card">
-        <h2>Selfdrop Dashboard (on-chain)</h2>
-        <p class="muted">
-          Data below is read directly from the selfdrop contract on Base.
-        </p>
-
+        <h2>Selfdrop Dashboard</h2>
+        <p class="muted">Data loaded from Base network contract.</p>
         <div class="progress-bar">
           <div id="progressFill" class="progress-fill"></div>
         </div>
@@ -369,194 +292,82 @@
           <span id="ethRaisedText">Total ETH raised: loading…</span>
           <span id="lastUpdated" style="font-style: italic;"></span>
         </div>
-
-        <div class="row" style="margin-top: 10px;">
-          <div>
-            <div class="label">Rate</div>
-            <div class="value">1 ETH = 6,000,000 NOST</div>
-          </div>
-          <div>
-            <div class="label">Min / Max contribution</div>
-            <div class="value">0.0001 – 1.0 ETH</div>
-          </div>
-          <div>
-            <div class="label">Selfdrop allocation</div>
-            <div class="value">600,000,000 NOST (60%)</div>
-          </div>
-        </div>
-
         <div id="statsStatus" class="status-ok"></div>
       </article>
 
       <article class="card">
         <h2>Tokenomics</h2>
-        <p class="muted">
-          Fixed supply with a nostalgic, community-driven distribution.
-        </p>
-        <div class="row">
-          <div>
-            <div class="label">Token</div>
-            <div class="value mono">$NOST · 1,000,000,000 supply</div>
-          </div>
-        </div>
-        <ul class="tokenomics-list">
-          <li>🪂 <strong>60% Selfdrop</strong> — 600,000,000 NOST</li>
-          <li>💧 <strong>20% Treasury & Liquidity</strong> — 200,000,000 NOST</li>
-          <li>👥 <strong>10% Community & Rewards</strong> — 100,000,000 NOST</li>
-          <li>🛠️ <strong>10% Team & Creator</strong> — 100,000,000 NOST</li>
+        <ul class="muted">
+          <li>🪂 60% Selfdrop — 600M $NOST</li>
+          <li>💧 20% Treasury & Liquidity — 200M</li>
+          <li>👥 10% Community & Rewards — 100M</li>
+          <li>🛠️ 10% Team & Creator — 100M</li>
         </ul>
-
-        <p class="muted" style="margin-top: 10px;">
-          No presale, no VC, no guaranteed financial return. This is a nostalgic
-          experiment inspired by early selfdrop culture.
-        </p>
       </article>
     </section>
 
-    <!-- CONTRACT & TRUST -->
     <section class="card" style="margin-top: 14px;">
-      <h2>Contracts & Transparency</h2>
-      <p class="muted">
-        All interactions happen on-chain. You can verify everything directly on
-        BaseScan.
-      </p>
-
-      <div class="field">
-        <div class="field-label">Selfdrop Contract (Base)</div>
-        <div class="field-box mono">
-          <a
-            href="https://basescan.org/address/0x973E86405E0aAe67fFCac61BDF915E517965Be6b"
-            target="_blank"
-            >0x973E86405E0aAe67fFCac61BDF915E517965Be6b</a
-          >
-        </div>
+      <h2>Contracts</h2>
+      <p class="muted">Verify everything directly on BaseScan.</p>
+      <div class="mono">
+        Selfdrop: 
+        <a href="https://basescan.org/address/0x973E86405E0aAe67fFCac61BDF915E517965Be6b" target="_blank">
+          0x973E86405E0aAe67fFCac61BDF915E517965Be6b
+        </a><br/>
+        Token: 
+        <a href="https://basescan.org/token/0x3ad479478e67990cA70c904B4E4639c764918dFd" target="_blank">
+          0x3ad479478e67990cA70c904B4E4639c764918dFd
+        </a>
       </div>
-
-      <div class="field">
-        <div class="field-label">Token Contract (Base)</div>
-        <div class="field-box mono">
-          <a
-            href="https://basescan.org/token/0x3ad479478e67990cA70c904B4E4639c764918dFd"
-            target="_blank"
-            >0x3ad479478e67990cA70c904B4E4639c764918dFd</a
-          >
-        </div>
-      </div>
-
-      <div class="field">
-        <div class="field-label">Core Wallets</div>
-        <div class="field-box">
-          <div class="label">Developer</div>
-          <div class="mono">
-            0xbddc1b15d0d53c9a214955371d97f2fb827f33b0
-          </div>
-          <div class="label" style="margin-top: 6px;">Treasury / Liquidity</div>
-          <div class="mono">
-            0x1a0bd576a763a87b8bc87791609ca74e35f5c38f
-          </div>
-          <div class="label" style="margin-top: 6px;">Community Wallet</div>
-          <div class="mono">
-            0x5e1918326c2f36fe66943b892f67d3ead8f08f8a
-          </div>
-        </div>
-      </div>
-
-      <div style="margin-top: 10px;">
-        <span class="pill">No presale</span>
-        <span class="pill">No VC</span>
-        <span class="pill">On-chain only</span>
-      </div>
-    </section>
-
-    <!-- HOW TO JOIN -->
-    <section class="card" style="margin-top: 14px;">
-      <h2>How to Join</h2>
-      <ol class="muted" style="padding-left: 18px; font-size: 13px;">
-        <li>Open this page in Base App or your favorite Dapps wallet.</li>
-        <li>Click <strong>Open Selfdrop dApp</strong> to go to the mint UI.</li>
-        <li>Send ETH on Base from the official dApp to receive $NOST.</li>
-        <li>Share your link or cast to help grow the nostalgia.</li>
-      </ol>
-      <p class="muted" style="margin-top: 8px;">
-        This is an experimental, nostalgic project. Participate only with what
-        you can afford to lose.
-      </p>
     </section>
 
     <footer>
       Nostalgia · Built on Base · 2025<br />
-      Official Farcaster: @nostalgiatoken.farcaster.eth
+      Farcaster: @nostalgiatoken.farcaster.eth
     </footer>
   </main>
 
   <script>
-    const SELF_DROP_ADDRESS =
-      "0x973E86405E0aAe67fFCac61BDF915E517965Be6b";
-    const SELF_DROP_ABI = [
+    const SELF_DROP_ADDRESS = "0x973E86405E0aAe67fFCac61BDF915E517965Be6b";
+    const ABI = [
       "function totalTokensSold() view returns (uint256)",
-      "function totalEthRaised() view returns (uint256)",
-      "function saleCapTokens() view returns (uint256)"
+      "function totalEthRaised() view returns (uint256)"
     ];
 
-    const progressFill = document.getElementById("progressFill");
-    const soldPercentEl = document.getElementById("soldPercent");
-    const soldNumbersEl = document.getElementById("soldNumbers");
-    const ethRaisedText = document.getElementById("ethRaisedText");
-    const lastUpdatedEl = document.getElementById("lastUpdated");
-    const statsStatusEl = document.getElementById("statsStatus");
+    const fill = document.getElementById("progressFill");
+    const soldPercent = document.getElementById("soldPercent");
+    const soldNumbers = document.getElementById("soldNumbers");
+    const ethRaised = document.getElementById("ethRaisedText");
+    const updated = document.getElementById("lastUpdated");
+    const status = document.getElementById("statsStatus");
 
     async function loadStats() {
       try {
-        const provider = new ethers.JsonRpcProvider(
-          "https://mainnet.base.org"
-        );
-        const contract = new ethers.Contract(
-          SELF_DROP_ADDRESS,
-          SELF_DROP_ABI,
-          provider
-        );
-
-        const [sold, raised, cap] = await Promise.all([
+        const provider = new ethers.JsonRpcProvider("https://mainnet.base.org");
+        const contract = new ethers.Contract(SELF_DROP_ADDRESS, ABI, provider);
+        const [sold, raised] = await Promise.all([
           contract.totalTokensSold(),
-          contract.totalEthRaised(),
-          contract.saleCapTokens()
+          contract.totalEthRaised()
         ]);
 
         const soldNum = Number(sold.toString());
-        const capNum = 600000000; // override ke 600M NOST
         const raisedEth = Number(ethers.formatEther(raised));
+        const cap = 600000000;
+        const pct = (soldNum / cap) * 100;
 
-        let percent = 0;
-        if (capNum > 0) {
-          percent = (soldNum / capNum) * 100;
-        }
-
-        progressFill.style.width =
-          Math.min(percent, 100).toFixed(2) + "%";
-        soldPercentEl.textContent =
-          "Sold: " + percent.toFixed(2) + "% of selfdrop allocation";
-        soldNumbersEl.textContent =
-          soldNum.toLocaleString() +
-          " / " +
-          capNum.toLocaleString() +
-          " NOST";
-        ethRaisedText.textContent =
-          "Total ETH raised: " + raisedEth.toFixed(4) + " ETH";
-
-        const now = new Date();
-        lastUpdatedEl.textContent =
-          "Last updated: " + now.toLocaleTimeString();
-        statsStatusEl.textContent = "On-chain data loaded successfully.";
-        statsStatusEl.className = "status-ok";
-      } catch (err) {
-        console.error("loadStats error", err);
-        soldPercentEl.textContent = "Sold: data unavailable";
-        soldNumbersEl.textContent = "";
-        ethRaisedText.textContent =
-          "Total ETH raised: data unavailable";
-        statsStatusEl.textContent =
-          "Failed to load on-chain data. Please try again later.";
-        statsStatusEl.className = "status-err";
+        fill.style.width = pct.toFixed(2) + "%";
+        soldPercent.textContent = `Sold: ${pct.toFixed(2)}% of 600M allocation`;
+        soldNumbers.textContent = `${soldNum.toLocaleString()} / ${cap.toLocaleString()} NOST`;
+        ethRaised.textContent = `Total ETH raised: ${raisedEth.toFixed(4)} ETH`;
+        updated.textContent = `Updated: ${new Date().toLocaleTimeString()}`;
+        status.textContent = "On-chain data loaded.";
+        status.className = "status-ok";
+      } catch (e) {
+        console.error(e);
+        soldPercent.textContent = "Sold: data unavailable";
+        ethRaised.textContent = "Total ETH raised: data unavailable";
+        status.textContent = "Failed to load on-chain data.";
+        status.className = "status-err";
       }
     }
 
