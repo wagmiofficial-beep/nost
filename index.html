@@ -13,13 +13,9 @@
   <meta property="og:url" content="https://nost.vercel.app" />
   <meta property="og:type" content="website" />
 
-  <!-- ❌ Frame  Mini App  -->
-  <!--
-  <meta property="fc:frame" content="vNext" />
-  <meta property="fc:frame:post_url" content="https://nost.vercel.app/api/webhook" />
-  -->
+  <!-- (Frame meta dihapus, kita fokus Mini App) -->
 
-  <!-- ✅ Farcaster MiniApp Embed (complete) -->
+  <!-- ✅ Farcaster MiniApp Embed lengkap -->
   <meta
     name="fc:miniapp"
     content='{"version":"1","imageUrl":"https://nost.vercel.app/og.png","button":{"title":"Join NOST Airdrop","action":{"type":"launch_miniapp","name":"Nostalgia Airdrop","url":"https://nost.vercel.app","splashImageUrl":"https://nost.vercel.app/og.png","splashBackgroundColor":"#0d1117"}}}'
@@ -315,7 +311,7 @@
       ]);
 
       const soldNum = Number(sold.toString());
-      const capNum = 600000000; // override manual ke 600M
+      const capNum = 600000000; // override ke 600M
       const raisedEth = Number(ethers.formatEther(raised));
 
       let percent = 0;
@@ -335,31 +331,48 @@
     }
   }
 
-  async function ensureBaseNetwork() {
-    const chainIdHex = await window.ethereum.request({ method: "eth_chainId" });
-    const current = parseInt(chainIdHex, 16);
-    if (current !== BASE_CHAIN_ID) {
-      await window.ethereum.request({
-        method: "wallet_switchEthereumChain",
-        params: [{ chainId: "0x" + BASE_CHAIN_ID.toString(16) }]
-      });
+  async function ensureBaseNetwork(provider) {
+    try {
+      const chainIdHex = await provider.request({ method: "eth_chainId" });
+      const current = parseInt(chainIdHex, 16);
+      if (current !== BASE_CHAIN_ID && provider === window.ethereum) {
+        await provider.request({
+          method: "wallet_switchEthereumChain",
+          params: [{ chainId: "0x" + BASE_CHAIN_ID.toString(16) }]
+        });
+      }
+    } catch (err) {
+      console.warn("ensureBaseNetwork error", err);
     }
   }
 
   async function connectWallet() {
-    if (!window.ethereum) {
+    // Provider bisa dari Mini App SDK atau window.ethereum
+    const miniAppProvider = window.__nost_miniappProvider;
+    let eip1193Provider = null;
+
+    if (miniAppProvider) {
+      eip1193Provider = miniAppProvider;
+    } else if (window.ethereum) {
+      eip1193Provider = window.ethereum;
+    } else {
       alert("No wallet detected. Please open in Base app or MetaMask.");
       return;
     }
+
     try {
-      await window.ethereum.request({ method: "eth_requestAccounts" });
-      ethProvider = new ethers.BrowserProvider(window.ethereum);
-      await ensureBaseNetwork();
+      // Minta account (akan di-handle oleh host/wallet)
+      await eip1193Provider.request({ method: "eth_requestAccounts" });
+      await ensureBaseNetwork(eip1193Provider);
+
+      ethProvider = new ethers.BrowserProvider(eip1193Provider);
       signer = await ethProvider.getSigner();
       currentAccount = await signer.getAddress();
+
       const short = currentAccount.slice(0, 6) + "..." + currentAccount.slice(-4);
       connectBtn.textContent = short;
       connectBtn.disabled = true;
+
       airdropGuest.style.display = "none";
       airdropUser.style.display = "block";
       updateReferralLink();
@@ -426,16 +439,26 @@
   loadStats();
 </script>
 
-<!-- ✅ Mini App SDK:  -->
+<!-- ✅ Mini App SDK: detect Mini App + ambil wallet provider + ready() -->
 <script type="module">
   import { sdk } from "https://esm.sh/@farcaster/miniapp-sdk";
 
   (async () => {
     try {
+      const isMiniApp = await sdk.isInMiniApp();
+      if (isMiniApp) {
+        const ethProvider = await sdk.wallet.getEthereumProvider();
+        // simpan di window supaya bisa dipakai script biasa
+        window.__nost_isMiniApp = true;
+        window.__nost_miniappProvider = ethProvider;
+      } else {
+        window.__nost_isMiniApp = false;
+      }
+
+      // kasih tahu host kalau konten sudah siap (hilangkan splash)
       await sdk.actions.ready();
     } catch (err) {
-      // Mini App),
-      console.warn("sdk.actions.ready() failed (probably not in Mini App host):", err);
+      console.warn("Mini App init / ready failed:", err);
     }
   })();
 </script>
