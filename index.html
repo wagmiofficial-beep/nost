@@ -444,17 +444,17 @@
 
   function updateReferralLink() {
   if (!currentAccount) return;
-  const cleanAddress = currentAccount.trim(); // hapus spasi tambahan
+  const cleanAddress = currentAccount.trim(); // pastikan tanpa spasi
   const url = `${REF_BASE_URL}/?ref=${cleanAddress}`;
-  refLinkInput.value = url.trim(); // pastikan link juga bersih
+  refLinkInput.value = url.trim(); // buang spasi / newline di ujung
 }
 
   function copyReferral() {
   if (!refLinkInput.value) return;
-  const cleanLink = refLinkInput.value.trim();
+  const cleanLink = refLinkInput.value.trim(); // buang spasi / enter
   navigator.clipboard.writeText(cleanLink).then(
-    () => setStatus("Referral link copied to clipboard.", true),
-    () => setStatus("Failed to copy link.", false)
+    () => setAirdropStatus("Referral link copied to clipboard.", true),
+    () => setAirdropStatus("Failed to copy link.", false)
   );
 }
 
