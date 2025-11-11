@@ -444,14 +444,20 @@
 
   function updateReferralLink() {
   if (!currentAccount) return;
-  const cleanAddress = currentAccount.trim(); // pastikan tanpa spasi
+
+  // hapus semua whitespace di address, jaga-jaga kalau wallet provider
+  // ngasih karakter aneh
+  const cleanAddress = currentAccount.replace(/\s+/g, "");
+
   const url = `${REF_BASE_URL}/?ref=${cleanAddress}`;
-  refLinkInput.value = url.trim(); // buang spasi / newline di ujung
+  refLinkInput.value = url.trim(); // pastikan tidak ada spasi di ujung
 }
 
   function copyReferral() {
   if (!refLinkInput.value) return;
-  const cleanLink = refLinkInput.value.trim(); // buang spasi / enter
+
+  const cleanLink = refLinkInput.value.trim(); // buang spasi/newline depan–belakang
+
   navigator.clipboard.writeText(cleanLink).then(
     () => setAirdropStatus("Referral link copied to clipboard.", true),
     () => setAirdropStatus("Failed to copy link.", false)
@@ -482,17 +488,18 @@
     return;
   }
 
-  const cleanAddress = currentAccount.trim();
+  // bersihin address dari semua whitespace
+  const cleanAddress = currentAccount.replace(/\s+/g, "");
   const refUrl = `${REF_BASE_URL}/?ref=${cleanAddress}`.trim();
 
-  // bangun teks lalu trim bagian akhirnya
-  const text = (
-    "Just joined the $NOST airdrop by @nostalgiatoken! Mint a memory, not a profit. 🧠✨\n\n" +
-    refUrl
-  ).trimEnd(); // HAPUS spasi / newline di ujung
+  const header =
+    "Just joined the $NOST airdrop by @nostalgiatoken! Mint a memory, not a profit. 🧠✨";
+
+  // gabung text + URL dan TRIM seluruhnya
+  const castText = `${header}\n\n${refUrl}`.trim();
 
   const composeUrl =
-    "https://warpcast.com/~/compose?text=" + encodeURIComponent(text);
+    "https://warpcast.com/~/compose?text=" + encodeURIComponent(castText);
 
   const sdk = window.__nost_sdk;
   if (window.__nost_isMiniApp && sdk && sdk.actions && sdk.actions.openUrl) {
