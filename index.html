@@ -477,31 +477,35 @@
   }
 
   async function shareOnFarcaster() {
-    if (!currentAccount) {
-      setAirdropStatus("Connect wallet to share with your referral link.", false);
-      return;
-    }
+  if (!currentAccount) {
+    setAirdropStatus("Connect wallet to share with your referral link.", false);
+    return;
+  }
 
-    const refUrl = `${REF_BASE_URL}/?ref=${currentAccount}`;
-    const text =
-      "Just joined the $NOST airdrop by @nostalgiatoken! Mint a memory, not a profit. 🧠✨\n\n" +
-      refUrl;
+  const cleanAddress = currentAccount.trim();
+  const refUrl = `${REF_BASE_URL}/?ref=${cleanAddress}`.trim();
 
-    const composeUrl =
-      "https://warpcast.com/~/compose?text=" + encodeURIComponent(text);
+  // bangun teks lalu trim bagian akhirnya
+  const text = (
+    "Just joined the $NOST airdrop by @nostalgiatoken! Mint a memory, not a profit. 🧠✨\n\n" +
+    refUrl
+  ).trimEnd(); // HAPUS spasi / newline di ujung
 
-    const sdk = window.__nost_sdk;
-    if (window.__nost_isMiniApp && sdk && sdk.actions && sdk.actions.openUrl) {
-      try {
-        await sdk.actions.openUrl(composeUrl);
-      } catch (err) {
-        console.warn("openUrl failed, fallback to window.open", err);
-        window.open(composeUrl, "_blank");
-      }
-    } else {
+  const composeUrl =
+    "https://warpcast.com/~/compose?text=" + encodeURIComponent(text);
+
+  const sdk = window.__nost_sdk;
+  if (window.__nost_isMiniApp && sdk && sdk.actions && sdk.actions.openUrl) {
+    try {
+      await sdk.actions.openUrl(composeUrl);
+    } catch (err) {
+      console.warn("openUrl failed, fallback to window.open", err);
       window.open(composeUrl, "_blank");
     }
+  } else {
+    window.open(composeUrl, "_blank");
   }
+}
 
   function updateEstimate() {
     if (!ethInput) return;
