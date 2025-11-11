@@ -25,16 +25,15 @@ export default async function handler(req, res) {
     };
   }
 
-  // Helper: frame kedua (share)
+  // Helper: frame  (share)
   function shareFrame(fid) {
-    // Kita pakai FID di teks supaya terasa lebih personal,
-    // tapi ini cuma teks, tidak ada logika on-chain.
+    //a on-chain.
     const shareText =
       `Just joined the $NOST airdrop by @nostalgiatoken.farcaster.eth! ` +
       `Mint a memory, not a profit.\n\n` +
       `${BASE_URL}`;
 
-    // URL composer Warpcast dengan teks prefill
+    // URL composer Warpcast
     const warpcastComposeUrl =
       "https://warpcast.com/~/compose?text=" + encodeURIComponent(shareText);
 
@@ -57,28 +56,28 @@ export default async function handler(req, res) {
     };
   }
 
-  // GET → kembalikan frame awal (untuk cek manual / validator)
+  // GET → 
   if (req.method === "GET") {
     res.setHeader("Content-Type", "application/json");
     return res.status(200).json(initialFrame());
   }
 
-  // POST → respon berdasarkan tombol yang ditekan
+  // POST → 
   if (req.method === "POST") {
     try {
       const body = req.body || {};
       const untrusted = body.untrustedData || {};
       const buttonIndex = untrusted.buttonIndex || 1; // 1-based
-      const fid = untrusted.fid; // optional, hanya untuk info
+      const fid = untrusted.fid; // 
 
-      // Tombol 1: View options → tampilkan frame share
+      // 
       if (buttonIndex === 1) {
         const frame = shareFrame(fid);
         res.setHeader("Content-Type", "application/json");
         return res.status(200).json(frame);
       }
 
-      // Tombol 2 dan lainnya → tetap balikin frame awal
+      // 
       const frame = initialFrame();
       res.setHeader("Content-Type", "application/json");
       return res.status(200).json(frame);
