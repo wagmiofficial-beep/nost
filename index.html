@@ -2,56 +2,53 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Nostalgia Airdrop</title>
+  <title>Nostalgia Airdrop & Selfdrop</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta
     name="description"
-    content="Join the $NOST Airdrop – connect wallet, mint your memory, and share your referral link."
+    content="Nostalgia Airdrop & Selfdrop on Base. Join the $NOST selfdrop, track on-chain stats, and view transparent tokenomics & contract details."
   />
 
-  <!-- ===== Open Graph (preview di Warpcast, Telegram, dsb) ===== -->
-  <meta property="og:title" content="Nostalgia Airdrop" />
+  <!-- ========== Open Graph (preview di Warpcast, Telegram, dll) ========== -->
+  <meta property="og:title" content="Nostalgia Airdrop & Selfdrop" />
   <meta
     property="og:description"
-    content="Join the $NOST Airdrop by the Nostalgia team. Connect wallet, mint your memory, and share your referral link."
+    content="Join the $NOST selfdrop on Base. Mint a memory, not a profit — with transparent tokenomics & contracts."
   />
   <meta property="og:image" content="https://nost.vercel.app/og.png" />
   <meta property="og:url" content="https://nost.vercel.app" />
   <meta property="og:type" content="website" />
 
-  <!-- ===== Farcaster Frame vNext (interaktif di Warpcast) ===== -->
+  <!-- ========== Farcaster Frame vNext ========== -->
   <meta property="fc:frame" content="vNext" />
   <meta
     property="fc:frame:post_url"
     content="https://nost.vercel.app/api/webhook"
   />
 
-  <!-- ===== Farcaster MiniApp embed (muncul di MiniApps tab) ===== -->
+  <!-- ========== Farcaster MiniApp embed ========== -->
   <meta
     name="fc:miniapp"
     content='{
-      "version": "1",
-      "imageUrl": "https://nost.vercel.app/og.png",
-      "button": {
-        "title": "Join NOST Airdrop",
-        "action": {
-          "type": "launch_miniapp",
-          "name": "Nostalgia Airdrop",
-          "url": "https://nost.vercel.app",
-          "splashImageUrl": "https://nost.vercel.app/og.png",
-          "splashBackgroundColor": "#0d1117"
+      "version":"1",
+      "imageUrl":"https://nost.vercel.app/og.png",
+      "button":{
+        "title":"Join NOST Airdrop",
+        "action":{
+          "type":"launch_miniapp",
+          "name":"Nostalgia Airdrop",
+          "url":"https://nost.vercel.app",
+          "splashImageUrl":"https://nost.vercel.app/og.png",
+          "splashBackgroundColor":"#0d1117"
         }
       }
     }'
   />
 
-  <link
-    rel="icon"
-    type="image/png"
-    href="https://nost.vercel.app/icon.png"
-  />
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="https://nost.vercel.app/icon.png" />
 
-  <!-- ===== STYLE (simple, dark pixel look) ===== -->
+  <!-- ========== STYLE ========== -->
   <style>
     * {
       box-sizing: border-box;
@@ -66,65 +63,509 @@
       color: #e5e7eb;
       display: flex;
       justify-content: center;
+    }
+
+    main {
+      width: 100%;
+      max-width: 900px;
+      padding: 24px 16px 40px;
+    }
+
+    a {
+      color: #60a5fa;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .badge {
+      display: inline-flex;
       align-items: center;
-      flex-direction: column;
+      gap: 8px;
+      border-radius: 999px;
+      padding: 4px 10px;
+      background: rgba(37, 99, 235, 0.15);
+      color: #bfdbfe;
+      font-size: 11px;
+      margin-bottom: 8px;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: radial-gradient(circle, #22c55e, #15803d);
+      box-shadow: 0 0 10px #22c55e;
+    }
+
+    .hero {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .hero-left {
+      flex: 1 1 260px;
+    }
+
+    .hero-right {
+      flex: 0 0 120px;
       text-align: center;
     }
 
-    img.logo {
-      width: 160px;
-      height: auto;
-      margin-bottom: 24px;
+    .logo {
+      width: 96px;
+      height: 96px;
+      border-radius: 24px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: #020617;
+      object-fit: cover;
     }
 
     h1 {
-      font-size: 28px;
-      color: #60a5fa;
-      margin-bottom: 10px;
+      margin: 0 0 6px;
+      font-size: 26px;
+      color: #f9fafb;
     }
 
-    p {
-      font-size: 15px;
-      color: #a3a3a3;
-      max-width: 320px;
-      margin: 0 auto 20px;
-      line-height: 1.6;
+    .subtitle {
+      margin: 0;
+      font-size: 14px;
+      color: #9ca3af;
     }
 
-    button {
-      background: #2563eb;
+    .primary-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 10px;
+      padding: 10px 18px;
+      border-radius: 999px;
       border: none;
-      padding: 12px 24px;
-      border-radius: 8px;
-      font-size: 15px;
-      color: white;
+      background: linear-gradient(135deg, #38bdf8, #2563eb);
+      color: #eff6ff;
+      font-size: 14px;
+      font-weight: 600;
       cursor: pointer;
-      transition: 0.2s ease;
+      box-shadow: 0 12px 30px rgba(37, 99, 235, 0.7);
     }
 
-    button:hover {
-      background: #1d4ed8;
+    .primary-btn span {
+      font-size: 18px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: minmax(0, 1.7fr) minmax(0, 1.1fr);
+      gap: 14px;
+    }
+
+    @media (max-width: 780px) {
+      .cards {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .hero {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .hero-right {
+        align-self: flex-start;
+      }
+    }
+
+    .card {
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 16px;
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      padding: 16px 16px 18px;
+      box-shadow: 0 18px 50px rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(18px);
+    }
+
+    .card h2 {
+      margin: 0 0 10px;
+      font-size: 17px;
+      color: #e5e7eb;
+    }
+
+    .muted {
+      font-size: 13px;
+      color: #9ca3af;
+      margin: 0 0 8px;
+    }
+
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 6px;
+      font-size: 13px;
+    }
+
+    .row > div {
+      flex: 1 1 140px;
+    }
+
+    .label {
+      font-size: 12px;
+      color: #9ca3af;
+    }
+
+    .value {
+      margin-top: 2px;
+      font-size: 13px;
+      color: #e5e7eb;
+      font-weight: 600;
+    }
+
+    .mono {
+      font-family: "JetBrains Mono", "Fira Code", monospace;
+      font-size: 12px;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 8px;
+      border-radius: 999px;
+      background: #020617;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      overflow: hidden;
+      margin-top: 8px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #22c55e, #38bdf8);
+      box-shadow: 0 0 18px rgba(34, 197, 94, 0.7);
+      transition: width 0.4s ease-out;
+    }
+
+    .progress-text {
+      margin-top: 6px;
+      font-size: 12px;
+      color: #9ca3af;
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .field {
+      margin-top: 8px;
+      font-size: 12px;
+    }
+
+    .field-label {
+      font-size: 12px;
+      color: #9ca3af;
+      margin-bottom: 2px;
+    }
+
+    .field-box {
+      padding: 8px 10px;
+      border-radius: 10px;
+      background: #020617;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      word-break: break-all;
+      font-size: 12px;
+    }
+
+    .tokenomics-list {
+      list-style: none;
+      padding-left: 0;
+      margin: 6px 0 0;
+      font-size: 13px;
+      color: #d1d5db;
+    }
+    .tokenomics-list li {
+      margin-bottom: 4px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: 11px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      color: #9ca3af;
+      margin-right: 6px;
+      margin-top: 4px;
+    }
+
+    .status-ok {
+      color: #4ade80;
+      font-size: 12px;
+      margin-top: 6px;
+    }
+
+    .status-err {
+      color: #f97373;
+      font-size: 12px;
+      margin-top: 6px;
     }
 
     footer {
-      margin-top: 40px;
-      font-size: 12px;
+      margin-top: 20px;
+      font-size: 11px;
+      text-align: center;
       color: #6b7280;
     }
   </style>
+
+  <!-- ethers.js v6 (untuk baca data on-chain) -->
+  <script src="https://cdn.jsdelivr.net/npm/ethers@6.11.1/dist/ethers.umd.min.js"></script>
 </head>
-
 <body>
-  <img src="https://nost.vercel.app/icon.png" class="logo" alt="$NOST" />
-  <h1>$NOST Airdrop</h1>
-  <p>
-    Connect your wallet, mint your onchain memory, and share your referral link
-    to join the Nostalgia Airdrop.
-  </p>
-  <button onclick="window.open('https://nost.vercel.app','_blank')">
-    Join Airdrop
-  </button>
+  <main>
+    <!-- ========== HERO ========== -->
+    <section class="hero">
+      <div class="hero-left">
+        <div class="badge">
+          <span class="dot"></span>
+          Live on Base · Selfdrop + Airdrop
+        </div>
+        <h1>$NOST Nostalgia Airdrop & Selfdrop</h1>
+        <p class="subtitle">
+          A tribute to the 2017–2019 selfdrop era. Send ETH, receive $NOST —
+          with on-chain stats and transparent tokenomics. Mint a memory, not a profit.
+        </p>
+        <button
+          class="primary-btn"
+          onclick="window.open('https://nost.vercel.app','_blank')"
+        >
+          <span>🪂</span> Join NOST Airdrop
+        </button>
+      </div>
+      <div class="hero-right">
+        <img
+          src="https://nost.vercel.app/icon.png"
+          class="logo"
+          alt="$NOST"
+        />
+      </div>
+    </section>
 
-  <footer>Powered by Base • Nostalgia 2025</footer>
+    <!-- ========== MAIN CARDS ========== -->
+    <section class="cards">
+      <!-- LEFT: Selfdrop dashboard -->
+      <article class="card">
+        <h2>Selfdrop Dashboard (on-chain)</h2>
+        <p class="muted">
+          Data below is read directly from the selfdrop contract on Base.
+        </p>
+
+        <div class="progress-bar">
+          <div id="progressFill" class="progress-fill"></div>
+        </div>
+        <div class="progress-text">
+          <span id="soldPercent">Sold: loading…</span>
+          <span id="soldNumbers" class="mono"></span>
+        </div>
+        <div class="progress-text">
+          <span id="ethRaisedText">Total ETH raised: loading…</span>
+          <span id="lastUpdated" style="font-style: italic;"></span>
+        </div>
+
+        <div class="row" style="margin-top: 10px;">
+          <div>
+            <div class="label">Rate</div>
+            <div class="value">1 ETH = 6,000,000 NOST</div>
+          </div>
+          <div>
+            <div class="label">Min / Max contribution</div>
+            <div class="value">0.0001 – 1.0 ETH</div>
+          </div>
+          <div>
+            <div class="label">Selfdrop allocation</div>
+            <div class="value">600,000,000 NOST (60%)</div>
+          </div>
+        </div>
+
+        <div id="statsStatus" class="status-ok"></div>
+      </article>
+
+      <!-- RIGHT: Tokenomics + how it works -->
+      <article class="card">
+        <h2>Tokenomics</h2>
+        <p class="muted">
+          Fixed supply with a nostalgic, community-driven distribution.
+        </p>
+        <div class="row">
+          <div>
+            <div class="label">Token</div>
+            <div class="value mono">$NOST · 1,000,000,000 supply</div>
+          </div>
+        </div>
+        <ul class="tokenomics-list">
+          <li>🪂 <strong>60% Selfdrop</strong> — 600,000,000 NOST</li>
+          <li>💧 <strong>20% Treasury & Liquidity</strong> — 200,000,000 NOST</li>
+          <li>👥 <strong>10% Community & Rewards</strong> — 100,000,000 NOST</li>
+          <li>🛠️ <strong>10% Team & Creator</strong> — 100,000,000 NOST</li>
+        </ul>
+
+        <p class="muted" style="margin-top: 10px;">
+          No presale, no VC, no guaranteed financial return. This is a nostalgic
+          experiment inspired by early selfdrop culture.
+        </p>
+      </article>
+    </section>
+
+    <!-- ========== CONTRACT & TRUST ========== -->
+    <section class="card" style="margin-top: 14px;">
+      <h2>Contracts & Transparency</h2>
+      <p class="muted">
+        All interactions happen on-chain. You can verify everything directly on
+        BaseScan.
+      </p>
+
+      <div class="field">
+        <div class="field-label">Selfdrop Contract (Base)</div>
+        <div class="field-box mono">
+          <a
+            href="https://basescan.org/address/0x973E86405E0aAe67fFCac61BDF915E517965Be6b"
+            target="_blank"
+            >0x973E86405E0aAe67fFCac61BDF915E517965Be6b</a
+          >
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">Token Contract (Base)</div>
+        <div class="field-box mono">
+          <a
+            href="https://basescan.org/token/0x3ad479478e67990cA70c904B4E4639c764918dFd"
+            target="_blank"
+            >0x3ad479478e67990cA70c904B4E4639c764918dFd</a
+          >
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">Core Wallets</div>
+        <div class="field-box">
+          <div class="label">Developer</div>
+          <div class="mono">
+            0xbddc1b15d0d53c9a214955371d97f2fb827f33b0
+          </div>
+          <div class="label" style="margin-top: 6px;">Treasury / Liquidity</div>
+          <div class="mono">
+            0x1a0bd576a763a87b8bc87791609ca74e35f5c38f
+          </div>
+          <div class="label" style="margin-top: 6px;">Community Wallet</div>
+          <div class="mono">
+            0x5e1918326c2f36fe66943b892f67d3ead8f08f8a
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top: 10px;">
+        <span class="pill">No presale</span>
+        <span class="pill">No VC</span>
+        <span class="pill">On-chain only</span>
+      </div>
+    </section>
+
+    <!-- ========== HOW TO JOIN ========== -->
+    <section class="card" style="margin-top: 14px;">
+      <h2>How to Join</h2>
+      <ol class="muted" style="padding-left: 18px; font-size: 13px;">
+        <li>Open this page in Base App or your favorite Dapps wallet.</li>
+        <li>Use the official selfdrop interface to send ETH on Base.</li>
+        <li>Receive $NOST according to the selfdrop rate.</li>
+        <li>Share your link or cast to help grow the nostalgia.</li>
+      </ol>
+      <p class="muted" style="margin-top: 8px;">
+        This is an experimental, nostalgic project. Participate only with what
+        you can afford to lose.
+      </p>
+    </section>
+
+    <footer>
+      Nostalgia · Built on Base · 2025<br />
+      Official Farcaster: @nostalgiatoken.farcaster.eth
+    </footer>
+  </main>
+
+  <!-- ========== SCRIPT: Load on-chain stats ========== -->
+  <script>
+    const SELF_DROP_ADDRESS =
+      "0x973E86405E0aAe67fFCac61BDF915E517965Be6b";
+    const SELF_DROP_ABI = [
+      "function totalTokensSold() view returns (uint256)",
+      "function totalEthRaised() view returns (uint256)",
+      "function saleCapTokens() view returns (uint256)"
+    ];
+
+    const progressFill = document.getElementById("progressFill");
+    const soldPercentEl = document.getElementById("soldPercent");
+    const soldNumbersEl = document.getElementById("soldNumbers");
+    const ethRaisedText = document.getElementById("ethRaisedText");
+    const lastUpdatedEl = document.getElementById("lastUpdated");
+    const statsStatusEl = document.getElementById("statsStatus");
+
+    async function loadStats() {
+      try {
+        const provider = new ethers.JsonRpcProvider(
+          "https://mainnet.base.org"
+        );
+        const contract = new ethers.Contract(
+          SELF_DROP_ADDRESS,
+          SELF_DROP_ABI,
+          provider
+        );
+
+        const [sold, raised, cap] = await Promise.all([
+          contract.totalTokensSold(),
+          contract.totalEthRaised(),
+          contract.saleCapTokens()
+        ]);
+
+        const soldNum = Number(sold.toString());
+        const capNum = 600000000; // override ke 600M NOST untuk selfdrop
+        const raisedEth = Number(ethers.formatEther(raised));
+
+        let percent = 0;
+        if (capNum > 0) {
+          percent = (soldNum / capNum) * 100;
+        }
+
+        progressFill.style.width =
+          Math.min(percent, 100).toFixed(2) + "%";
+        soldPercentEl.textContent =
+          "Sold: " + percent.toFixed(2) + "% of selfdrop allocation";
+        soldNumbersEl.textContent =
+          soldNum.toLocaleString() +
+          " / " +
+          capNum.toLocaleString() +
+          " NOST";
+        ethRaisedText.textContent =
+          "Total ETH raised: " + raisedEth.toFixed(4) + " ETH";
+
+        const now = new Date();
+        lastUpdatedEl.textContent =
+          "Last updated: " + now.toLocaleTimeString();
+        statsStatusEl.textContent = "On-chain data loaded successfully.";
+        statsStatusEl.className = "status-ok";
+      } catch (err) {
+        console.error("loadStats error", err);
+        soldPercentEl.textContent = "Sold: data unavailable";
+        soldNumbersEl.textContent = "";
+        ethRaisedText.textContent =
+          "Total ETH raised: data unavailable";
+        statsStatusEl.textContent =
+          "Failed to load on-chain data. Please try again later.";
+        statsStatusEl.className = "status-err";
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", loadStats);
+  </script>
 </body>
 </html>
