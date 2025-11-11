@@ -13,7 +13,7 @@
   <meta property="og:url" content="https://nost.vercel.app" />
   <meta property="og:type" content="website" />
 
-  <!-- ❌ Frame dihapus, kita fokus Mini App saja -->
+  <!-- ❌ Frame  Mini App  -->
   <!--
   <meta property="fc:frame" content="vNext" />
   <meta property="fc:frame:post_url" content="https://nost.vercel.app/api/webhook" />
@@ -426,7 +426,7 @@
   loadStats();
 </script>
 
-<!-- ✅ Mini App SDK: beri tahu host kalau konten sudah siap -->
+<!-- ✅ Mini App SDK:  -->
 <script type="module">
   import { sdk } from "https://esm.sh/@farcaster/miniapp-sdk";
 
@@ -434,7 +434,7 @@
     try {
       await sdk.actions.ready();
     } catch (err) {
-      // Kalau dibuka di browser biasa (bukan Mini App), error ini aman diabaikan
+      // Mini App),
       console.warn("sdk.actions.ready() failed (probably not in Mini App host):", err);
     }
   })();
