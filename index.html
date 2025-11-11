@@ -474,31 +474,40 @@ refLinkInput.value = url.replace(/\s+/g, '');
     }
   }
 
-  async function shareOnFarcaster() {
-    if (!currentAccount) {
-      setAirdropStatus("Connect wallet to share with your referral link.", false);
-      return;
+ async function shareOnFarcaster() {
+  if (!currentAccount) {
+    setAirdropStatus("Connect wallet to share with your referral link.", false);
+    return;
+  }
+
+  // rapihin URL biar 100% tanpa spasi
+  const refUrl = `${REF_BASE_URL}/?ref=${currentAccount.trim()}`.replace(/\s+/g, "");
+
+  const text =
+    "Just joined the $NOST airdrop by @nostalgiatoken! Mint a memory, not a profit. 🧠✨";
+
+  const sdk = window.__nost_sdk;
+
+  // ✅ Di dalam Mini App → pakai composeCast dengan embeds
+  if (window.__nost_isMiniApp && sdk && sdk.actions && sdk.actions.composeCast) {
+    try {
+      await sdk.actions.composeCast({
+        text,           // teks cast
+        embeds: [refUrl] // URL mini app yg akan muncul sebagai card
+      });
+      return; // sudah beres, keluar
+    } catch (err) {
+      console.warn("composeCast failed, fallback to warpcast URL", err);
     }
+  }
 
-    const refUrl = `${REF_BASE_URL}/?ref=${currentAccount}`;
-    const text =
-      "Just joined the $NOST airdrop by @nostalgiatoken! Mint a memory, not a profit. 🧠✨\n\n" +
-      refUrl;
+  // 🌐 Fallback kalau buka lewat browser biasa (bukan mini app)
+  const composeUrl =
+    "https://warpcast.com/~/compose?text=" +
+    encodeURIComponent(text + "\n\n" + refUrl);
 
-    const composeUrl =
-      "https://warpcast.com/~/compose?text=" + encodeURIComponent(text);
-
-    const sdk = window.__nost_sdk;
-    if (window.__nost_isMiniApp && sdk && sdk.actions && sdk.actions.openUrl) {
-      try {
-        await sdk.actions.openUrl(composeUrl);
-      } catch (err) {
-        console.warn("openUrl failed, fallback to window.open", err);
-        window.open(composeUrl, "_blank");
-      }
-    } else {
-      window.open(composeUrl, "_blank");
-    }
+  window.open(composeUrl, "_blank");
+}
   }
 
   function updateEstimate() {
