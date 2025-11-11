@@ -1,7 +1,5 @@
-import { NextResponse } from "next/server";
-
-export async function GET() {
-  return NextResponse.json({
+export default function handler(req, res) {
+  res.status(200).json({
     version: "1",
     image: "https://nost.vercel.app/og.png",
     buttons: [
