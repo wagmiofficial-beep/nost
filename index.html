@@ -444,8 +444,8 @@
 
   function updateReferralLink() {
     if (!currentAccount) return;
-    const url = `${REF_BASE_URL}/?ref=${currentAccount}`;
-    refLinkInput.value = url;
+    const url = `${REF_BASE_URL}/?ref=${currentAccount.trim()}`;
+refLinkInput.value = url.replace(/\s+/g, '');
   }
 
   function copyReferral() {
