@@ -13,9 +13,7 @@
   <meta property="og:url" content="https://nost.vercel.app" />
   <meta property="og:type" content="website" />
 
-  <!-- (Frame meta dihapus, kita fokus Mini App) -->
-
-  <!-- ✅ Farcaster MiniApp Embed lengkap -->
+  <!-- ✅ Farcaster MiniApp Embed -->
   <meta
     name="fc:miniapp"
     content='{"version":"1","imageUrl":"https://nost.vercel.app/og.png","button":{"title":"Join NOST Airdrop","action":{"type":"launch_miniapp","name":"Nostalgia Airdrop","url":"https://nost.vercel.app","splashImageUrl":"https://nost.vercel.app/og.png","splashBackgroundColor":"#0d1117"}}}'
@@ -151,7 +149,7 @@
       <span class="pill-dot"></span>
       Live on Base Mainnet
     </div>
-    <h1>Nostalgia Airdrop & Selfdrop</h1>
+    <h1>Nostalgia Airdrop &amp; Selfdrop</h1>
     <p class="muted">
       A tribute to the 2017–2019 era. Send ETH, receive <span class="mono">$NOST</span> — and earn a chance in the airdrop by sharing.
     </p>
@@ -197,7 +195,7 @@
         <div class="value">20% (200,000,000)</div>
       </div>
       <div>
-        <div class="label">Community & Rewards</div>
+        <div class="label">Community &amp; Rewards</div>
         <div class="value">10% (100,000,000)</div>
       </div>
     </div>
@@ -253,7 +251,7 @@
   </section>
 
   <section class="card">
-    <h2>How Airdrop & Referral Works</h2>
+    <h2>How Airdrop &amp; Referral Works</h2>
     <ol class="muted" style="padding-left:18px;font-size:13px;margin-top:4px;">
       <li>Connect your wallet on Base and get your referral link.</li>
       <li>Share your link on Farcaster, Base App, or with friends.</li>
@@ -311,7 +309,7 @@
       ]);
 
       const soldNum = Number(sold.toString());
-      const capNum = 600000000; // override ke 600M
+      const capNum = 600000000;
       const raisedEth = Number(ethers.formatEther(raised));
 
       let percent = 0;
@@ -347,7 +345,6 @@
   }
 
   async function connectWallet() {
-    // Provider bisa dari Mini App SDK atau window.ethereum
     const miniAppProvider = window.__nost_miniappProvider;
     let eip1193Provider = null;
 
@@ -361,7 +358,6 @@
     }
 
     try {
-      // Minta account (akan di-handle oleh host/wallet)
       await eip1193Provider.request({ method: "eth_requestAccounts" });
       await ensureBaseNetwork(eip1193Provider);
 
@@ -416,7 +412,7 @@
     }
   }
 
-  function shareOnFarcaster() {
+  async function shareOnFarcaster() {
     if (!currentAccount) {
       setStatus("Connect wallet to share with your referral link.", false);
       return;
@@ -427,35 +423,47 @@
       "Just joined the $NOST airdrop by @nostalgiatoken! Mint a memory, not a profit. 🧠✨\n\n" +
       refUrl;
 
-    const url = "https://warpcast.com/~/compose?text=" + encodeURIComponent(text);
-    window.open(url, "_blank");
+    const composeUrl =
+      "https://warpcast.com/~/compose?text=" + encodeURIComponent(text);
+
+    const sdk = window.__nost_sdk;
+    if (window.__nost_isMiniApp && sdk && sdk.actions && sdk.actions.openUrl) {
+      try {
+        await sdk.actions.openUrl(composeUrl);
+      } catch (err) {
+        console.warn("openUrl failed, fallback to window.open", err);
+        window.open(composeUrl, "_blank");
+      }
+    } else {
+      window.open(composeUrl, "_blank");
+    }
   }
 
   connectBtn.addEventListener("click", connectWallet);
   copyRefBtn.addEventListener("click", copyReferral);
   joinBtn.addEventListener("click", joinAirdrop);
-  shareBtn.addEventListener("click", shareOnFarcaster);
+  shareBtn.addEventListener("click", () => { shareOnFarcaster(); });
 
   loadStats();
 </script>
 
-<!-- ✅ Mini App SDK: detect Mini App + ambil wallet provider + ready() -->
+<!-- Mini App SDK: detect Mini App, ambil wallet provider, panggil ready() -->
 <script type="module">
   import { sdk } from "https://esm.sh/@farcaster/miniapp-sdk";
 
   (async () => {
     try {
+      window.__nost_sdk = sdk;
+
       const isMiniApp = await sdk.isInMiniApp();
       if (isMiniApp) {
         const ethProvider = await sdk.wallet.getEthereumProvider();
-        // simpan di window supaya bisa dipakai script biasa
         window.__nost_isMiniApp = true;
         window.__nost_miniappProvider = ethProvider;
       } else {
         window.__nost_isMiniApp = false;
       }
 
-      // kasih tahu host kalau konten sudah siap (hilangkan splash)
       await sdk.actions.ready();
     } catch (err) {
       console.warn("Mini App init / ready failed:", err);
