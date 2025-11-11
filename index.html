@@ -445,18 +445,17 @@
   function updateReferralLink() {
   if (!currentAccount) return;
 
-  // hapus semua whitespace di address, jaga-jaga kalau wallet provider
-  // ngasih karakter aneh
+  // 
   const cleanAddress = currentAccount.replace(/\s+/g, "");
 
   const url = `${REF_BASE_URL}/?ref=${cleanAddress}`;
-  refLinkInput.value = url.trim(); // pastikan tidak ada spasi di ujung
+  refLinkInput.value = url.trim(); // 
 }
 
   function copyReferral() {
   if (!refLinkInput.value) return;
 
-  const cleanLink = refLinkInput.value.trim(); // buang spasi/newline depan–belakang
+  const cleanLink = refLinkInput.value.trim(); // 
 
   navigator.clipboard.writeText(cleanLink).then(
     () => setAirdropStatus("Referral link copied to clipboard.", true),
@@ -515,7 +514,7 @@
 
   function updateEstimate() {
     if (!ethInput) return;
-    const raw = ethInput.value.trim().replace(",", "."); // antisipasi koma lokal
+    const raw = ethInput.value.trim().replace(",", "."); // 
 
     if (!raw) {
       estimateText.textContent = "Estimated: – NOST";
@@ -603,7 +602,7 @@
           true
         );
       } else {
-        // Browser biasa (MetaMask / Rabby) → pakai ethers.Contract
+        // Browser  (MetaMask / Rabby) →  ethers.Contract
         const contractWithSigner = new ethers.Contract(
           SELF_DROP_ADDRESS,
           SELF_DROP_ABI,
@@ -629,7 +628,7 @@
       setSelfdropStatus(msg, false);
       updateEstimate();
     } finally {
-      // Aktifkan lagi tombol supaya user bisa coba lagi
+      // 
       updateEstimate();
     }
   }
