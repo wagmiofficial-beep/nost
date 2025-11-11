@@ -136,8 +136,6 @@
     .ref-link-copy button{
       padding:6px 10px;font-size:12px;
     }
-
-    /* input number styling for selfdrop */
     input[type="number"]::-webkit-outer-spin-button,
     input[type="number"]::-webkit-inner-spin-button{
       -webkit-appearance:none;margin:0;
@@ -145,7 +143,6 @@
     input[type="number"]{
       -moz-appearance:textfield;
     }
-
     @media(max-width:600px){
       main{padding:14px 10px 28px}
       .card{padding:16px 14px 18px}
@@ -178,7 +175,7 @@
       </div>
       <div>
         <div class="label">Rate</div>
-        <div class="value">1 ETH = 6,000,000 NOST</div>
+        <div class="value">1 ETH = 20,000,000 NOST</div>
       </div>
       <div>
         <div class="label">Min / Max</div>
@@ -234,7 +231,7 @@
     </div>
   </section>
 
-  <!-- ✅ SELFDDROP BUY FORM -->
+  <!-- SELFDDROP BUY FORM -->
   <section class="card">
     <h2>Join the Selfdrop</h2>
     <p class="muted">
@@ -326,7 +323,7 @@
 
   const MIN_ETH = 0.0001;
   const MAX_ETH = 1;
-  const RATE_PER_ETH = 6000000; // 6M NOST per ETH
+  const RATE_PER_ETH = 20000000; // 1 ETH = 20,000,000 NOST
 
   const connectBtn = document.getElementById("connectBtn");
   const progressFill = document.getElementById("progressFill");
@@ -506,7 +503,7 @@
 
   function updateEstimate() {
     if (!ethInput) return;
-    const raw = ethInput.value.trim();
+    const raw = ethInput.value.trim().replace(",", "."); // antisipasi koma lokal
 
     if (!raw) {
       estimateText.textContent = "Estimated: – NOST";
@@ -544,10 +541,10 @@
     }
     if (!ethInput) return;
 
-    const raw = ethInput.value.trim();
-    const amount = Number(raw);
+    const rawInput = ethInput.value.trim().replace(",", ".");
+    const amount = Number(rawInput);
 
-    if (!raw || !isFinite(amount)) {
+    if (!rawInput || !isFinite(amount)) {
       setSelfdropStatus("Enter a valid ETH amount.", false);
       return;
     }
@@ -560,21 +557,57 @@
       buyBtn.disabled = true;
       setSelfdropStatus("Waiting for wallet confirmation…", true);
 
-      const contractWithSigner = new ethers.Contract(
-        SELF_DROP_ADDRESS,
-        SELF_DROP_ABI,
-        signer
-      );
-      const valueWei = ethers.parseEther(raw);
-      const tx = await contractWithSigner.buyTokens({ value: valueWei });
+      const valueWei = ethers.parseEther(rawInput);
 
-      setSelfdropStatus("Transaction submitted. Waiting for confirmation…", true);
-      await tx.wait();
+      // Jika di Mini App: gunakan provider langsung (eth_sendTransaction)
+      if (window.__nost_isMiniApp && window.__nost_miniappProvider) {
+        const provider = window.__nost_miniappProvider;
+        const iface = new ethers.Interface(SELF_DROP_ABI);
+        const data = iface.encodeFunctionData("buyTokens", []);
 
-      setSelfdropStatus(
-        "Successfully bought NOST. Tx: " + tx.hash.slice(0, 10) + "…",
-        true
-      );
+        const txRequest = {
+          from: currentAccount,
+          to: SELF_DROP_ADDRESS,
+          data,
+          value: ethers.toBeHex(valueWei)
+        };
+
+        const txHash = await provider.request({
+          method: "eth_sendTransaction",
+          params: [txRequest]
+        });
+
+        setSelfdropStatus("Transaction submitted. Waiting for confirmation…", true);
+
+        try {
+          const publicProvider = new ethers.JsonRpcProvider("https://mainnet.base.org");
+          await publicProvider.waitForTransaction(txHash);
+        } catch (innerErr) {
+          console.warn("waitForTransaction error (non-fatal):", innerErr);
+        }
+
+        setSelfdropStatus(
+          "Successfully bought NOST. Tx: " + txHash.slice(0, 10) + "…",
+          true
+        );
+      } else {
+        // Browser biasa (MetaMask / Rabby) → pakai ethers.Contract
+        const contractWithSigner = new ethers.Contract(
+          SELF_DROP_ADDRESS,
+          SELF_DROP_ABI,
+          signer
+        );
+        const tx = await contractWithSigner.buyTokens({ value: valueWei });
+
+        setSelfdropStatus("Transaction submitted. Waiting for confirmation…", true);
+        await tx.wait();
+
+        setSelfdropStatus(
+          "Successfully bought NOST. Tx: " + tx.hash.slice(0, 10) + "…",
+          true
+        );
+      }
+
       ethInput.value = "";
       updateEstimate();
       loadStats();
@@ -582,6 +615,9 @@
       console.error("buyNost error", err);
       const msg = err?.shortMessage || err?.message || "Transaction failed.";
       setSelfdropStatus(msg, false);
+      updateEstimate();
+    } finally {
+      // Aktifkan lagi tombol supaya user bisa coba lagi
       updateEstimate();
     }
   }
@@ -597,7 +633,7 @@
   loadStats();
 </script>
 
-<!-- Mini App SDK: detect Mini App, ambil wallet provider, panggil ready() -->
+<!-- Mini App SDK -->
 <script type="module">
   import { sdk } from "https://esm.sh/@farcaster/miniapp-sdk";
 
